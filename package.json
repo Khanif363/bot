@@ -1,0 +1,16 @@
+{
+  "name": "js_bot",
+  "version": "1.0.0",
+  "description": "anonymous bot telegram",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "main": "pm2 start index.js",
+    "stop": "pm2 stop index.js"
+  },
+  "author": "Sniff363",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.60.0"
+  }
+}
