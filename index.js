@@ -1,12 +1,8 @@
 const TelegramBot = require("node-telegram-bot-api");
 
 // Ganti dengan API token yang Anda dapatkan dari halaman My Bots
-const token = "5818810312:AAHqwt5drp3EgWVs_Qx0QCG9ea17Z7uPeD4";
+const token = "5818810312:AAEx-HeTkfh616LUXYZaMYRDYDLbQ557mI4";
 
-if (bot.isPolling()) {
-  await bot.stopPolling();
-}
-await bot.startPolling();
 // Buat bot baru
 const bot = new TelegramBot(token, { polling: true });
 
@@ -18,7 +14,7 @@ bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   const userId = msg.from.id;
   const userFirstName = msg.from.first_name;
-
+  //   console.log("NEW MESSAGE");
   // Tambahkan pengguna ke daftar jika belum terdaftar
   if (!userList.includes(userId)) {
     userList.push(userId);
@@ -33,11 +29,30 @@ bot.on("message", (msg) => {
       otherUserId = userList[Math.floor(Math.random() * userList.length)];
     }
 
-    // Kirim pesan ke pengguna yang terhubung
-    bot.sendMessage(
-      otherUserId,
-      `Halo Friend.., Saat ini kamu sedang terhubung dengan ${userFirstName}!\nAyo mengobrol dengannya &#128522;`
-    );
-  }
+    // Buat room baru dengan kedua pengguna
+    bot.createNewGroupChat([userId, otherUserId]).then((chat) => {
+      const roomId = chat.id;
+
+      // Kirim pesan ke pengguna yang terhubung
+      bot.sendMessage(roomId, `Halo, Anda terhubung dengan ${userFirstName}!`);
+
+      // Tanggapi pesan yang dikirim di dalam room
+      bot.on("message", (msg) => {
+        // Pastikan pesan dikirim di dalam room yang sama
+        if (msg.chat.id === roomId) {
+          // Kirim pesan ke pengguna lain di dalam room
+          bot.sendMessage(otherUserId, msg.text);
+        }
+      });
+    });
+  } 
+//   else {
+//     bot.on("message", (msg) => {
+//       // Pastikan pesan dikirim di dalam room yang sama
+//       if (msg.chat.id === roomId) {
+//         // Kirim pesan ke pengguna lain di dalam room
+//         bot.sendMessage(otherUserId, msg.text);
+//       }
+//     });
+//   }
 });
-await bot.stopPolling();
