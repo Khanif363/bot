@@ -1,7 +1,8 @@
 const TelegramBot = require("node-telegram-bot-api");
 
 // Ganti dengan API token yang Anda dapatkan dari halaman My Bots
-const token = "5818810312:AAEx-HeTkfh616LUXYZaMYRDYDLbQ557mI4";
+const token = "5818810312:AAHEBjDDwT5661xLXp-ySSeD6G8811Lp7Vk";
+// const token = "5818810312:AAEx-HeTkfh616LUXYZaMYRDYDLbQ557mI4";
 
 // Buat bot baru
 const bot = new TelegramBot(token, { polling: true });
