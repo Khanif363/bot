@@ -1,5 +1,10 @@
 const TelegramBot = require("node-telegram-bot-api");
 
+const Promise = require("bluebird");
+Promise.config({
+  cancellation: true,
+});
+
 // Ganti dengan API token yang Anda dapatkan dari halaman My Bots
 const token = "5818810312:AAHqwt5drp3EgWVs_Qx0QCG9ea17Z7uPeD4";
 
